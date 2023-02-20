@@ -1,7 +1,9 @@
 package com.example.travel.domain.city;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -25,7 +27,7 @@ class CityRepositoryTest {
     private City initCity;
 
     @BeforeEach
-    void setUp() {
+    void init(TestInfo info) {
         initCity = City.builder().cityName(cityName).desc(desc).build();
         cityRepository.save(initCity);
     }
