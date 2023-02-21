@@ -3,9 +3,11 @@ package com.example.travel.domain.user;
 import com.example.travel.domain.BaseEntity;
 import com.example.travel.domain.travel.Travel;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,6 +24,23 @@ public class MyUser extends BaseEntity {
 
     private String nickname;
 
-    @OneToMany(mappedBy = "myUser", orphanRemoval = true)
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Travel> travels;
+
+    @Builder
+    public MyUser(String email, String password, String nickname, List<Travel> travels) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        if (travels == null) {
+            this.travels = new ArrayList<>();
+        } else {
+            this.travels = travels;
+        }
+    }
+
+    public void makeTravelPlan(Travel travel) {
+        travels.add(travel);
+        travel.setUser(this);
+    }
 }

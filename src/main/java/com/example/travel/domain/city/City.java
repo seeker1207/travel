@@ -27,7 +27,7 @@ public class City extends BaseEntity {
 
     @OneToMany(mappedBy = "city")
     @Builder.Default
-    private List<CityTravel> cityTravels = new ArrayList<>();
+    private List<CityTravel> travels = new ArrayList<>();
 
     public void modifyCityName(String cityName) {
         this.cityName = cityName;
