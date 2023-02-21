@@ -2,7 +2,7 @@ package com.example.travel.domain.city;
 
 
 import com.example.travel.domain.BaseEntity;
-import com.example.travel.domain.travelItem.TravelItem;
+import com.example.travel.domain.citytravel.CityTravel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +27,7 @@ public class City extends BaseEntity {
 
     @OneToMany(mappedBy = "city")
     @Builder.Default
-    private List<TravelItem> travelItems = new ArrayList<>();
+    private List<CityTravel> cityTravels = new ArrayList<>();
 
     public void modifyCityName(String cityName) {
         this.cityName = cityName;

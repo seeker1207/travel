@@ -1,4 +1,4 @@
-package com.example.travel.domain.travelItem;
+package com.example.travel.domain.citytravel;
 
 import com.example.travel.domain.BaseEntity;
 import com.example.travel.domain.city.City;
@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class TravelItem extends BaseEntity {
+public class CityTravel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

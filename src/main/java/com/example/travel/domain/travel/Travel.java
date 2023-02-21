@@ -1,8 +1,8 @@
 package com.example.travel.domain.travel;
 
 import com.example.travel.domain.BaseEntity;
-import com.example.travel.domain.city.City;
-import com.example.travel.domain.travelItem.TravelItem;
+import com.example.travel.domain.citytravel.CityTravel;
+import com.example.travel.domain.user.MyUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +22,8 @@ public class Travel extends BaseEntity {
     @Column(nullable = false)
     @OneToMany(mappedBy = "travel")
     @Builder.Default
-    private List<TravelItem> travelItems = new ArrayList<>();
+    private List<CityTravel> cityTravels = new ArrayList<>();
 
-
+    @ManyToOne
+    private MyUser user;
 }
