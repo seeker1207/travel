@@ -41,10 +41,11 @@ class CityRepositoryTest {
 
         // when
         cityRepository.save(newCity);
+        City savedCity = cityRepository.findByCityName(cityName).orElseThrow(NoSuchElementException::new);
 
         // then
-        assertEquals(cityName, newCity.getCityName());
-        assertEquals(desc, newCity.getDesc());
+        assertEquals(cityName, savedCity.getCityName());
+        assertEquals(desc, savedCity.getDesc());
     }
 
     @Test
@@ -68,9 +69,11 @@ class CityRepositoryTest {
         city.modifyCityNameAndDesc(newCityName, newDesc);
         cityRepository.save(city);
 
+        City savedCity = cityRepository.findByCityName(newCityName).orElseThrow(NoSuchElementException::new);
+
         // then
-        assertEquals(city.getCityName(), newCityName);
-        assertEquals(city.getDesc(), newDesc);
+        assertEquals(savedCity.getCityName(), newCityName);
+        assertEquals(savedCity.getDesc(), newDesc);
     }
 
     @Test
