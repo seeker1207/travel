@@ -5,6 +5,7 @@ import com.example.travel.domain.travel.Travel;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 @Getter
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class MyUser extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,7 @@ public class MyUser extends BaseEntity {
 
     private String nickname;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(mappedBy = "traveler", orphanRemoval = true)
     private List<Travel> travels;
 
     @Builder
@@ -41,6 +43,6 @@ public class MyUser extends BaseEntity {
 
     public void makeTravelPlan(Travel travel) {
         travels.add(travel);
-        travel.setUser(this);
+        travel.setTraveler(this);
     }
 }
