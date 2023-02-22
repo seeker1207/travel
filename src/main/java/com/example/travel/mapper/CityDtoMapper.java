@@ -6,6 +6,7 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(
         componentModel = "spring",
@@ -13,6 +14,7 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.WARN
 )
 public interface CityDtoMapper {
+    public static final CityDtoMapper INSTANCE = Mappers.getMapper(CityDtoMapper.class);
     @Mapping(target="id", ignore = true)
     @Mapping(target="travels", ignore = true)
     City toEntity(CityDto cityDto);
