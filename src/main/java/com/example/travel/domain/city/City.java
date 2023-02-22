@@ -47,4 +47,14 @@ public class City extends BaseEntity {
         this.desc = cityDto.getDesc();
 
     }
+
+    public void update(CityDto cityDto) {
+        if (cityDto.getCityName() != null) {
+            this.cityName = cityDto.getCityName();
+        }
+
+        if (cityDto.getDesc() != null) {
+            this.desc = cityDto.getDesc();
+        }
+    }
 }
