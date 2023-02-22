@@ -1,7 +1,7 @@
 package com.example.travel.mapper;
 
-import com.example.travel.domain.city.City;
-import com.example.travel.domain.city.CityDto;
+import com.example.travel.domain.travel.TravelDto;
+import com.example.travel.domain.travel.Travel;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,11 +12,12 @@ import org.mapstruct.ReportingPolicy;
         injectionStrategy = InjectionStrategy.CONSTRUCTOR,
         unmappedTargetPolicy = ReportingPolicy.WARN
 )
-public interface CityDtoMapper {
+public interface TravelDtoMapper {
+
+
     @Mapping(target="id", ignore = true)
-    @Mapping(target="travels", ignore = true)
-    City toEntity(CityDto cityDto);
+    Travel toEntity(TravelDto travelDto);
 
-
-    CityDto toDto(City city);
+    @Mapping(target="userEmail", ignore = true)
+    TravelDto toDto(Travel travel);
 }
