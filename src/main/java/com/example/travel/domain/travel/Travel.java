@@ -17,6 +17,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor
+@Builder
 public class Travel extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,16 +32,17 @@ public class Travel extends BaseEntity {
     @Column(nullable = false)
     @OneToMany(mappedBy = "travel")
     @Cascade(CascadeType.ALL)
-    private List<CityTravel> cities;
+    @Builder.Default
+    private List<CityTravel> cities = new ArrayList<>();
 
     @ManyToOne
-    private MyUser user;
+    private MyUser traveler;
 
     public void modifyTitle(String title) {
         this.travelTitle = title;
     }
-    public void setUser(MyUser user) {
-        this.user = user;
+    public void setTraveler(MyUser traveler) {
+        this.traveler = traveler;
     }
 
     public void addCity(City city) {
@@ -49,11 +51,17 @@ public class Travel extends BaseEntity {
         city.getTravels().add(cityTravel);
     }
 
-    @Builder
-    public Travel(String travelTitle, LocalDateTime startDate, LocalDateTime endDate) {
-        this.travelTitle = travelTitle;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.cities = new ArrayList<>();
+    public void updateByDto(TravelDto travelDto) {
+        if (travelDto.getTravelTitle() != null) {
+            travelTitle = travelDto.getTravelTitle();
+        }
+        if (travelDto.getStartDate() != null) {
+            startDate = travelDto.getStartDate();
+        }
+        if (travelDto.getEndDate() != null) {
+            endDate = travelDto.getEndDate();
+        }
     }
+
+
 }
