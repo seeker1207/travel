@@ -23,9 +23,9 @@ public class CityService {
     }
 
     public City getCity(Long cityId) {
-
-
-        return cityRepository.findById(cityId).orElseThrow(NoSuchElementException::new);
+        City city = cityRepository.findById(cityId).orElseThrow(NoSuchElementException::new);
+        city.updateLookAtTime();
+        return city;
     }
 
     public void deleteCity(Long cityId) {
