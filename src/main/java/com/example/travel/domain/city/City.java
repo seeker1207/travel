@@ -6,6 +6,7 @@ import com.example.travel.domain.citytravel.CityTravel;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class City extends BaseEntity {
     private String cityName;
 
     private String desc;
+
+    private LocalDateTime lookAt;
 
     @OneToMany(mappedBy = "city")
     @Builder.Default

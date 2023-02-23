@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,9 +25,14 @@ public interface CityRepository extends JpaRepository<City, Long> {
             "join city.travels cityTravel " +
             "join cityTravel.travel travel " +
             "where travel.traveler.id = :userId " +
-            "and local_date < travel.startDate " +
+            "and current date < travel.startDate " +
             "order by min(travel.startDate) asc limit 10"
     )
     Optional<List<City>> findWillTravelCitiesByUser(Long userId);
 
+
+    List<City> findTop10ByCreatedAtBetweenOrderByCreatedAtDesc(LocalDateTime start, LocalDateTime end);
+
+
+//    Optional<List<City>> findExceptCondition();
 }

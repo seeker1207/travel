@@ -23,10 +23,16 @@ public class CityService {
     }
 
     public City getCity(Long cityId) {
+
+
         return cityRepository.findById(cityId).orElseThrow(NoSuchElementException::new);
     }
 
     public void deleteCity(Long cityId) {
         cityRepository.deleteById(cityId);
+    }
+
+    public void getTravelingCities(Long userID) {
+
     }
 }
