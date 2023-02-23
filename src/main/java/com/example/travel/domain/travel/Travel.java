@@ -51,15 +51,15 @@ public class Travel extends BaseEntity {
         city.getTravels().add(cityTravel);
     }
 
-    public void updateByDto(TravelDto travelDto) {
-        if (travelDto.getTravelTitle() != null) {
-            travelTitle = travelDto.getTravelTitle();
+    public void updateByDto(TravelUpdateDto travelUpdateDto) {
+        if (travelUpdateDto.getTravelTitle() != null) {
+            travelTitle = travelUpdateDto.getTravelTitle();
         }
-        if (travelDto.getStartDate() != null) {
-            startDate = travelDto.getStartDate();
+        if (travelUpdateDto.getStartDate() != null) {
+            startDate = travelUpdateDto.getStartDate();
         }
-        if (travelDto.getEndDate() != null) {
-            endDate = travelDto.getEndDate();
+        if (travelUpdateDto.getEndDate() != null) {
+            endDate = travelUpdateDto.getEndDate();
         }
     }
 
