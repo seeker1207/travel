@@ -10,6 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -58,7 +59,7 @@ class CityServiceTest {
     }
 
     @Test
-    public void 도시_정보를_조회한다() {
+    public void 도시_정보를_조회하고_조회된_시간을_저장한다() {
         //given
         City initCity = getCity();
         when(cityRepository.findById(1L)).thenReturn(Optional.of(initCity));
@@ -66,9 +67,10 @@ class CityServiceTest {
         //when
         City actual = cityService.getCity(1L);
 
+
         //then
         assertEquals(actual.getCityName(), initCity.getCityName());
-
+        assertTrue(actual.getLookAt().isBefore(LocalDateTime.now()));
     }
 
     @Test

@@ -60,4 +60,8 @@ public class City extends BaseEntity {
             this.desc = cityDto.getDesc();
         }
     }
+
+    public void updateLookAtTime() {
+        this.lookAt = LocalDateTime.now();
+    }
 }
