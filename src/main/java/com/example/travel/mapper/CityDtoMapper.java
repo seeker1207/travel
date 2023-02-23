@@ -17,6 +17,7 @@ public interface CityDtoMapper {
     public static final CityDtoMapper INSTANCE = Mappers.getMapper(CityDtoMapper.class);
     @Mapping(target="id", ignore = true)
     @Mapping(target="travels", ignore = true)
+    @Mapping(target="lookAt", ignore = true)
     City toEntity(CityDto cityDto);
 
 
