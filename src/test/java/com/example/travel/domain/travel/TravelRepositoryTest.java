@@ -1,21 +1,17 @@
 package com.example.travel.domain.travel;
 
-import com.example.travel.domain.city.City;
-import com.example.travel.domain.citytravel.CityTravel;
-import com.example.travel.domain.user.MyUser;
-import com.example.travel.domain.user.MyUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 class TravelRepositoryTest {
@@ -23,8 +19,8 @@ class TravelRepositoryTest {
     private TravelRepository travelRepository;
 
     private final String travelTitle = "졸업 기념 여행";
-    private final LocalDateTime startDate = LocalDateTime.of(2023, 2, 26, 0, 0);
-    private final LocalDateTime endDate = LocalDateTime.of(2023, 3, 1, 0, 0);
+    private final LocalDate startDate = LocalDate.of(2023, 2, 26);
+    private final LocalDate endDate = LocalDate.of(2023, 3, 1);
 
     @BeforeEach
     void init() {
@@ -38,8 +34,8 @@ class TravelRepositoryTest {
 
     @Test
     void 여행_정보가_DB에_저장된다() {
-        LocalDateTime startDate = LocalDateTime.of(2023, 2, 26, 0, 0);
-        LocalDateTime endDate = LocalDateTime.of(2023, 3, 1, 0, 0);
+        LocalDate startDate = LocalDate.of(2023, 2, 26);
+        LocalDate endDate = LocalDate.of(2023, 3, 1);
         Travel travel = Travel.builder()
                 .travelTitle("종강 기념 여행!")
                 .startDate(startDate)
@@ -85,8 +81,6 @@ class TravelRepositoryTest {
             travelRepository.findById(1L).orElseThrow(NoSuchElementException::new);
         });
     }
-
-
 
 
 }
