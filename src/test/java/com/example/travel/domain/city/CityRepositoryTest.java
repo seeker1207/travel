@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -103,7 +104,7 @@ class CityRepositoryTest {
                 .orElseThrow(NoSuchElementException::new);
 
         //then
-        assertEquals(cities.get(0).getCityName(), "여행 중인 도시");
+        assertEquals("여행 중인 도시", cities.get(0).getCityName());
     }
 
     @Test
@@ -116,10 +117,21 @@ class CityRepositoryTest {
                 .orElseThrow(NoSuchElementException::new);
 
         //then
-        assertEquals(cities.get(0).getCityName(), "여행 예정인 도시");
+        assertEquals("여행 예정인 도시", cities.get(0).getCityName());
     }
 
+    @Test
+    void 하루_이내에_등록된_도시를_조회한다() {
+        //given
+        List<Travel> travels = makeAndSaveTravels();
 
+        //when
+        List<City> cities = cityRepository.findTop10ByCreatedAtBetweenOrderByCreatedAtDesc(
+                LocalDateTime.now().minusDays(1L), LocalDateTime.now().plusDays(1L));
+
+        //then
+        assertEquals(3, cities.size());
+    }
     private City getCity(String cityName, String desc) {
         return City.builder().cityName(cityName).desc(desc).build();
     }
