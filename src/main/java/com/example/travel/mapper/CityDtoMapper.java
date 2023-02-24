@@ -14,7 +14,7 @@ import org.mapstruct.factory.Mappers;
         unmappedTargetPolicy = ReportingPolicy.WARN
 )
 public interface CityDtoMapper {
-    public static final CityDtoMapper INSTANCE = Mappers.getMapper(CityDtoMapper.class);
+    CityDtoMapper INSTANCE = Mappers.getMapper(CityDtoMapper.class);
     @Mapping(target="id", ignore = true)
     @Mapping(target="travels", ignore = true)
     @Mapping(target="lookAt", ignore = true)
