@@ -7,8 +7,10 @@ import com.example.travel.domain.user.MyUser;
 import java.time.LocalDate;
 
 public class TestUtil {
+    static public String cityName = "부산";
+    static public String description = "바다가 아름다운 도시입니다.";
     static public City getCity() {
-        return City.builder().id(1L).cityName("부산").description("바다가 아름다운 도시입니다.").build();
+        return City.builder().id(1L).cityName(cityName).description(description).build();
     }
 
     static public Travel getTravel() {
