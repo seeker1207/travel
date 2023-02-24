@@ -6,6 +6,7 @@ import com.example.travel.domain.city.dto.CityDto;
 import com.example.travel.domain.citytravel.CityTravel;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,11 +26,11 @@ public class City extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String cityName;
 
-    private String desc;
+    private String description;
 
     private LocalDateTime lookAt;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     private List<CityTravel> travels = new ArrayList<>();
 
@@ -38,7 +39,7 @@ public class City extends BaseEntity {
     }
 
     public void modifyCityDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public void modifyCityNameAndDesc(String cityName, String desc) {
@@ -48,17 +49,17 @@ public class City extends BaseEntity {
 
     public void allUpdate(CityDto cityDto) {
         this.cityName = cityDto.getCityName();
-        this.desc = cityDto.getDesc();
+        this.description = cityDto.getDescription();
 
     }
 
     public void update(CityDto cityDto) {
-        if (cityDto.getCityName() != null) {
+        if (ObjectUtils.isEmpty(cityDto.getCityName())) {
             this.cityName = cityDto.getCityName();
         }
 
-        if (cityDto.getDesc() != null) {
-            this.desc = cityDto.getDesc();
+        if (ObjectUtils.isEmpty(cityDto.getDescription())) {
+            this.description = cityDto.getDescription();
         }
     }
 

@@ -22,8 +22,8 @@ public class CityController {
         if (ObjectUtils.isEmpty(cityDto.getCityName())) {
             ResponseEntity.badRequest().build();
         }
-        if (ObjectUtils.isEmpty(cityDto.getDesc())) {
-            cityDto.setDesc("");
+        if (ObjectUtils.isEmpty(cityDto.getDescription())) {
+            cityDto.setDescription("");
         }
 
         cityService.saveCity(cityDto);
