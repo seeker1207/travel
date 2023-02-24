@@ -2,6 +2,8 @@ package com.example.travel.domain.travel;
 
 import com.example.travel.domain.city.City;
 import com.example.travel.domain.city.CityRepository;
+import com.example.travel.domain.travel.dto.TravelDto;
+import com.example.travel.domain.travel.dto.TravelUpdateDto;
 import com.example.travel.domain.user.MyUser;
 import com.example.travel.domain.user.MyUserRepository;
 import com.example.travel.domain.util.TestUtil;
@@ -14,6 +16,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -44,7 +47,7 @@ class TravelServiceTest {
                 .startDate(LocalDate.of(2023, 2, 1))
                 .endDate(LocalDate.of(2023, 2, 15))
                 .userEmail("test@email.com")
-                .cityId("1")
+                .cityIds(List.of("1"))
                 .build();
     }
 

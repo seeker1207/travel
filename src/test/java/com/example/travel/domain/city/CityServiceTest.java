@@ -36,11 +36,11 @@ class CityServiceTest {
     ArgumentCaptor<Long> longArgumentCaptor;
 
     public CityDto getCityDto() {
-        return CityDto.builder().cityName("부산").desc("바다가 아름다운 도시입니다.").build();
+        return CityDto.builder().cityName("부산").description("바다가 아름다운 도시입니다.").build();
     }
 
     public City getCity() {
-        return City.builder().id(1L).cityName("부산").desc("바다가 아름다운 도시입니다.").build();
+        return City.builder().id(1L).cityName("부산").description("바다가 아름다운 도시입니다.").build();
     }
 
     public List<City> getCities() {
@@ -66,7 +66,7 @@ class CityServiceTest {
         City expectedCity = cityRepository.findByCityName("부산").orElseThrow(NoSuchElementException::new);
 
         assertEquals(expectedCity.getCityName(), "부산");
-        assertEquals(expectedCity.getDesc(), "바다가 아름다운 도시입니다.");
+        assertEquals(expectedCity.getDescription(), "바다가 아름다운 도시입니다.");
     }
 
     @Test
@@ -87,7 +87,7 @@ class CityServiceTest {
     @Test
     public void 도시_정보를_수정한다() {
         //given
-        CityDto cityDto = CityDto.builder().cityName("서울").desc("야경이 아름다운 도시입니다.").build();
+        CityDto cityDto = CityDto.builder().cityName("서울").description("야경이 아름다운 도시입니다.").build();
         when(cityRepository.save(any())).thenReturn(getCity());
         when(cityRepository.findById(1L)).thenReturn(Optional.of(getCity()));
 

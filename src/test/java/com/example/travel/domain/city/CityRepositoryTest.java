@@ -37,7 +37,7 @@ class CityRepositoryTest {
         // given
         String cityName = "서울";
         String desc = "서울은 살기 좋은 도시입니다.";
-        City newCity = City.builder().cityName(cityName).desc(desc).build();
+        City newCity = City.builder().cityName(cityName).description(desc).build();
 
         // when
         cityRepository.save(newCity);
@@ -45,7 +45,7 @@ class CityRepositoryTest {
 
         // then
         assertEquals(cityName, savedCity.getCityName());
-        assertEquals(desc, savedCity.getDesc());
+        assertEquals(desc, savedCity.getDescription());
     }
 
     @Test
@@ -57,7 +57,7 @@ class CityRepositoryTest {
         City city = cityRepository.findByCityName(cityName).orElseThrow(NoSuchElementException::new);
         //then
         assertEquals(city.getCityName(), cityName);
-        assertEquals(city.getDesc(), desc);
+        assertEquals(city.getDescription(), desc);
 
     }
 
@@ -78,7 +78,7 @@ class CityRepositoryTest {
 
         // then
         assertEquals(updatedCity.getCityName(), newCityName);
-        assertEquals(updatedCity.getDesc(), newDesc);
+        assertEquals(updatedCity.getDescription(), newDesc);
     }
 
     @Test
@@ -146,7 +146,7 @@ class CityRepositoryTest {
     }
 
     private City getCity(String cityName, String desc) {
-        return City.builder().cityName(cityName).desc(desc).build();
+        return City.builder().cityName(cityName).description(desc).build();
     }
 
     private MyUser getUser() {
