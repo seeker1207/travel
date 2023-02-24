@@ -44,7 +44,7 @@ public class TravelController {
 
         LocalDate startDate = travelDto.getStartDate();
         LocalDate endDate = travelDto.getEndDate();
-        if (!startDate.isEqual(endDate) && startDate.isBefore(endDate)) {
+        if (!startDate.isEqual(endDate) && startDate.isAfter(endDate)) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -63,11 +63,6 @@ public class TravelController {
     @PatchMapping("{id}")
     public ResponseEntity<TravelResponse> updateTravel(
             @PathVariable String id, @RequestBody TravelUpdateDto travelUpdateDto) {
-        if (ObjectUtils.isEmpty(travelUpdateDto.getTravelTitle())) {
-            return ResponseEntity.badRequest().build();        }
-        if (ObjectUtils.isEmpty(travelUpdateDto.getStartDate())) {
-            return ResponseEntity.badRequest().build();
-        }
 
         travelService.updateTravel(Long.valueOf(id), travelUpdateDto);
         return ResponseEntity.ok().build();
