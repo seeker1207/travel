@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -18,11 +17,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ActiveProfiles("test")
 class TravelRepositoryTest {
     @Autowired
-    private TravelRepository travelRepository;
+    TravelRepository travelRepository;
 
-    private final String travelTitle = "졸업 기념 여행";
-    private final LocalDate startDate = LocalDate.of(2023, 2, 26);
-    private final LocalDate endDate = LocalDate.of(2023, 3, 1);
+    final String travelTitle = "졸업 기념 여행";
+    final LocalDate startDate = LocalDate.of(2023, 2, 26);
+    final LocalDate endDate = LocalDate.of(2023, 3, 1);
 
     @BeforeEach
     void init() {

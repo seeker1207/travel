@@ -21,13 +21,13 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CityServiceTest {
     @Mock
-    private CityRepository cityRepository;
+    CityRepository cityRepository;
 
     @Mock
-    private MyUserRepository userRepository;
+    MyUserRepository userRepository;
 
     @InjectMocks
-    private CityService cityService;
+    CityService cityService;
 
     @Captor
     ArgumentCaptor<City> cityArgumentCaptor;

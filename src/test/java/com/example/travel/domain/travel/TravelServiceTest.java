@@ -26,14 +26,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(SpringExtension.class)
 class TravelServiceTest {
     @Mock
-    private TravelRepository travelRepository;
+    TravelRepository travelRepository;
     @Mock
-    private MyUserRepository myUserRepository;
+    MyUserRepository myUserRepository;
     @Mock
-    private CityRepository cityRepository;
+    CityRepository cityRepository;
 
     @InjectMocks
-    private TravelService travelService;
+    TravelService travelService;
 
     @Captor
     ArgumentCaptor<Travel> travelArgumentCaptor;

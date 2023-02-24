@@ -23,16 +23,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ActiveProfiles("test")
 class CityRepositoryTest {
     @Autowired
-    private CityRepository cityRepository;
+    CityRepository cityRepository;
 
     @Autowired
-    private MyUserRepository myUserRepository;
+    MyUserRepository myUserRepository;
 
     @Autowired
-    private TravelRepository travelRepository;
+    TravelRepository travelRepository;
 
-    private final String cityName = "부산";
-    private final String desc = "부산은 바다가 아름다운 도시입니다.";
+    final String cityName = "부산";
+    final String desc = "부산은 바다가 아름다운 도시입니다.";
 
     @Test
     void 도시_정보가_저장된다() {
