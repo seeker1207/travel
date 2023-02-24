@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
+@ActiveProfiles("test")
 class TravelRepositoryTest {
     @Autowired
     private TravelRepository travelRepository;
@@ -52,7 +54,7 @@ class TravelRepositoryTest {
     @Test
     void DB에_저장된_여행_정보가_조회_된다() {
         List<Travel> travels = travelRepository.findAll();
-        LocalDateTime expectedStartDate = LocalDateTime.of(2023, 2, 26, 0, 0);
+        LocalDate expectedStartDate = LocalDate.of(2023, 2, 26);
         assertEquals(travels.size(), 1);
         assertEquals(travels.get(0).getTravelTitle(), "졸업 기념 여행");
         assertEquals(travels.get(0).getStartDate(), expectedStartDate);

@@ -7,6 +7,7 @@ import com.example.travel.domain.user.MyUserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @DataJpaTest
+@ActiveProfiles("test")
 class CityRepositoryTest {
     @Autowired
     private CityRepository cityRepository;
