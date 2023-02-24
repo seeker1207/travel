@@ -49,7 +49,7 @@ class CityRepositoryTest {
     }
 
     @Test
-    void 도시_정보가_조회된다() {
+    void 단일_도시_정보가_조회된다() {
         //given
         City savedCity = getCity(cityName, desc);
         cityRepository.save(savedCity);
@@ -101,8 +101,7 @@ class CityRepositoryTest {
         List<Travel> travels = makeAndSaveTravels();
 
         //when
-        List<City> cities = cityRepository.findTravelingCitiesByUser(travels.get(0).getTraveler().getId())
-                .orElseThrow(NoSuchElementException::new);
+        List<City> cities = cityRepository.findTravelingCitiesByUser(travels.get(0).getTraveler().getId());
 
         //then
         assertEquals("여행 중인 도시", cities.get(0).getCityName());
@@ -114,8 +113,7 @@ class CityRepositoryTest {
         List<Travel> travels = makeAndSaveTravels();
 
         //when
-        List<City> cities = cityRepository.findWillTravelCitiesByUser(travels.get(0).getTraveler().getId())
-                .orElseThrow(NoSuchElementException::new);
+        List<City> cities = cityRepository.findWillTravelCitiesByUser(travels.get(0).getTraveler().getId());
 
         //then
         assertEquals("여행 예정인 도시", cities.get(0).getCityName());
@@ -185,14 +183,12 @@ class CityRepositoryTest {
         MyUser myUser = getUser();
         myUserRepository.save(myUser);
 
-        cities.forEach((city) -> cityRepository.save(city));
+        cityRepository.saveAll(cities);
         travelOne.addCity(cityOne);
         travelTwo.addCity(cityTwo);
         travelThree.addCity(cityThree);
 
-        travels.forEach((travel) -> {
-            travel.setTraveler(myUser);
-        });
+        travels.forEach((travel) -> travel.setTraveler(myUser));
 
         travelRepository.saveAll(travels);
 
