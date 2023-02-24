@@ -54,11 +54,11 @@ public class City extends BaseEntity {
     }
 
     public void update(CityDto cityDto) {
-        if (ObjectUtils.isEmpty(cityDto.getCityName())) {
+        if (!ObjectUtils.isEmpty(cityDto.getCityName())) {
             this.cityName = cityDto.getCityName();
         }
 
-        if (ObjectUtils.isEmpty(cityDto.getDescription())) {
+        if (!ObjectUtils.isEmpty(cityDto.getDescription())) {
             this.description = cityDto.getDescription();
         }
     }
