@@ -30,20 +30,20 @@ public interface CityRepository extends JpaRepository<City, Long> {
     )
     List<City> findWillTravelCitiesByUser(Long userId);
 
-    @Query("select distinct city, travel.createdAt from City city " +
+    @Query("select distinct city, city.createdAt from City city " +
             "join city.travels cityTravel " +
             "join cityTravel.travel travel " +
             "where travel.traveler.id = :userId " +
             "and local_datetime >= :start and local_datetime < :end " +
-            "order by travel.createdAt desc limit 10")
+            "order by city.createdAt desc limit 10")
     List<City> findTop10ByCreatedAtBetween(Long userId, LocalDateTime start, LocalDateTime end);
 
-    @Query("select distinct city, travel.createdAt from City city " +
+    @Query("select distinct city, city.lookAt from City city " +
             "join city.travels cityTravel " +
             "join cityTravel.travel travel " +
             "where travel.traveler.id = :userId " +
             "and local_datetime >= :start and local_datetime < :end " +
-            "order by travel.createdAt desc limit 10")
+            "order by city.lookAt desc limit 10")
     List<City> findTop10ByLookAtBetween(Long userId, LocalDateTime start, LocalDateTime end);
 
 //    Optional<List<City>> findExceptCondition();
