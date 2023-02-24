@@ -1,4 +1,4 @@
-package com.example.travel.domain.travel;
+package com.example.travel.domain.travel.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 public class TravelDto {
     private String userEmail;
-    private String cityId;
+    private List<String> cityIds;
     private String travelTitle;
     private LocalDate startDate;
     private LocalDate endDate;

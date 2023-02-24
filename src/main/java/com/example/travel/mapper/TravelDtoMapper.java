@@ -1,7 +1,8 @@
 package com.example.travel.mapper;
 
-import com.example.travel.domain.travel.TravelDto;
+import com.example.travel.domain.travel.dto.TravelDto;
 import com.example.travel.domain.travel.Travel;
+import com.example.travel.domain.travel.dto.TravelResponse;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,6 +24,15 @@ public interface TravelDtoMapper {
     Travel toEntity(TravelDto travelDto);
 
     @Mapping(target="userEmail", ignore = true)
-    @Mapping(target="cityId", ignore = true)
+    @Mapping(target="cityIds", ignore = true)
     TravelDto toDto(Travel travel);
+
+    @Mapping(target="cities",
+            expression = "java(" +
+                    "travel.getCities().stream()" +
+                    ".map((cityTravel) -> CityDtoMapper.INSTANCE.toResponse(cityTravel.getCity()))" +
+                    ".toList()" +
+                    ")")
+    TravelResponse toResponse(Travel travel);
+
 }

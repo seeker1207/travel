@@ -3,6 +3,7 @@ package com.example.travel.domain.travel;
 import com.example.travel.domain.BaseEntity;
 import com.example.travel.domain.city.City;
 import com.example.travel.domain.citytravel.CityTravel;
+import com.example.travel.domain.travel.dto.TravelUpdateDto;
 import com.example.travel.domain.user.MyUser;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,7 +11,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +42,7 @@ public class Travel extends BaseEntity {
     public void modifyTitle(String title) {
         this.travelTitle = title;
     }
+
     public void setTraveler(MyUser traveler) {
         this.traveler = traveler;
     }
@@ -50,6 +51,10 @@ public class Travel extends BaseEntity {
         CityTravel cityTravel = new CityTravel(this, city);
         cities.add(cityTravel);
         city.getTravels().add(cityTravel);
+    }
+
+    public void addCity(List<City> cities) {
+        cities.forEach(this::addCity);
     }
 
     public void updateByDto(TravelUpdateDto travelUpdateDto) {

@@ -1,5 +1,6 @@
 package com.example.travel.domain.city;
 
+import com.example.travel.domain.city.dto.CityDto;
 import com.example.travel.domain.user.MyUser;
 import com.example.travel.domain.user.MyUserRepository;
 import org.junit.jupiter.api.Test;
