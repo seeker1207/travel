@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/city")
@@ -49,5 +51,29 @@ public class CityController {
         cityService.deleteCity(Long.valueOf(id));
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("traveling")
+    public ResponseEntity<List<CityResponse>> getTravellingCity(@RequestParam("userId") String userId) {
+        List<City> cities = cityService.getTravelingCitiesByUser(Long.valueOf(userId));
+        return ResponseEntity.ok(cities.stream().map(CityDtoMapper.INSTANCE::toResponse).toList());
+    }
+
+    @GetMapping("willtravel")
+    public ResponseEntity<List<CityResponse>> getWillTravelCity(@RequestParam("userId") String userId) {
+        List<City> cities = cityService.getWillTravelCitiesByUser(Long.valueOf(userId));
+        return ResponseEntity.ok(cities.stream().map(CityDtoMapper.INSTANCE::toResponse).toList());
+    }
+
+    @GetMapping("save-oneday")
+    public ResponseEntity<List<CityResponse>> getCitiesSaveInOneDay(@RequestParam("userId") String userId) {
+        List<City> cities = cityService.getCitiesSaveInOneDayByUser(Long.valueOf(userId));
+        return ResponseEntity.ok(cities.stream().map(CityDtoMapper.INSTANCE::toResponse).toList());
+    }
+
+    @GetMapping("lookat-oneweek")
+    public ResponseEntity<List<CityResponse>> getCitiesLookAtForOneWeek(@RequestParam("userId") String userId) {
+        List<City> cities = cityService.getCitiesLookAtForOneWeekByUser(Long.valueOf(userId));
+        return ResponseEntity.ok(cities.stream().map(CityDtoMapper.INSTANCE::toResponse).toList());
     }
 }
