@@ -1,11 +1,9 @@
 package com.example.travel.domain.city;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +19,7 @@ public interface CityRepository extends JpaRepository<City, Long> {
             "and local_date >= travel.startDate and local_date <= travel.endDate " +
             "order by travel.startDate"
     )
-    Optional<List<City>> findTravelingCitiesByUser(Long userId);
+    List<City> findTravelingCitiesByUser(Long userId);
 
     @Query("select distinct city, travel.startDate from City city " +
             "join city.travels cityTravel " +
@@ -30,7 +28,7 @@ public interface CityRepository extends JpaRepository<City, Long> {
             "and local_date < travel.startDate " +
             "order by travel.startDate asc limit 10"
     )
-    Optional<List<City>> findWillTravelCitiesByUser(Long userId);
+    List<City> findWillTravelCitiesByUser(Long userId);
 
     @Query("select distinct city, travel.createdAt from City city " +
             "join city.travels cityTravel " +
