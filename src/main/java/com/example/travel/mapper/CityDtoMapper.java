@@ -1,7 +1,8 @@
 package com.example.travel.mapper;
 
 import com.example.travel.domain.city.City;
-import com.example.travel.domain.city.CityDto;
+import com.example.travel.domain.city.dto.CityDto;
+import com.example.travel.domain.city.dto.CityResponse;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,4 +23,6 @@ public interface CityDtoMapper {
 
 
     CityDto toDto(City city);
+
+    CityResponse toResponse(City city);
 }
