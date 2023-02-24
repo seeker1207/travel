@@ -1,4 +1,4 @@
-package com.example.travel.domain.travel;
+package com.example.travel.domain.travel.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
