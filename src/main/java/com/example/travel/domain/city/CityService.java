@@ -3,6 +3,7 @@ package com.example.travel.domain.city;
 import com.example.travel.domain.city.dto.CityDto;
 import com.example.travel.domain.user.MyUserRepository;
 import com.example.travel.mapper.CityDtoMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,15 +13,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@RequiredArgsConstructor
 public class CityService {
     private final CityRepository cityRepository;
-
     private final MyUserRepository userRepository;
-
-    public CityService(CityRepository cityRepository, MyUserRepository userRepository) {
-        this.cityRepository = cityRepository;
-        this.userRepository = userRepository;
-    }
 
     public void saveCity(CityDto cityDto) {
         City city = CityDtoMapper.INSTANCE.toEntity(cityDto);
@@ -41,6 +37,10 @@ public class CityService {
     }
 
     public void deleteCity(Long cityId) {
+        City city = cityRepository.findById(cityId).orElseThrow(NoSuchElementException::new);
+        if (city.getTravels().size() > 0) {
+            throw new IllegalStateException("이 도시가 지정된 여행계획이 존재합니다.");
+        }
         cityRepository.deleteById(cityId);
     }
 
@@ -51,6 +51,7 @@ public class CityService {
         cityRepository.saveAll(cities);
         return cities;
     }
+
     public List<City> getWillTravelCitiesByUser(Long userId) {
         userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
         List<City> cities = cityRepository.findWillTravelCitiesByUser(userId);
