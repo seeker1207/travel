@@ -9,6 +9,7 @@ import com.example.travel.domain.user.MyUserRepository;
 import com.example.travel.mapper.TravelDtoMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -27,6 +28,10 @@ public class TravelService {
     }
 
     public void makeTravel(TravelDto travelDto) {
+        if (travelDto.getEndDate().equals(LocalDate.now()) || travelDto.getEndDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("종료일은 현재일보다 미래이어야 합니다.");
+        }
+
         MyUser currentUser = myUserRepository.findByEmail(travelDto.getUserEmail()).orElseThrow(NoSuchElementException::new);
         List<City> targetCities = travelDto.getCityIds().stream()
                 .map((cityId) -> cityRepository.findById(Long.valueOf(cityId))
