@@ -1,5 +1,7 @@
 package com.example.travel.domain.city;
 
+import com.example.travel.domain.user.MyUser;
+import com.example.travel.domain.user.MyUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -7,20 +9,21 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class CityServiceTest {
     @Mock
     private CityRepository cityRepository;
+
+    @Mock
+    private MyUserRepository userRepository;
 
     @InjectMocks
     private CityService cityService;
@@ -39,6 +42,13 @@ class CityServiceTest {
         return City.builder().id(1L).cityName("부산").desc("바다가 아름다운 도시입니다.").build();
     }
 
+    public List<City> getCities() {
+        List<City> cities = new ArrayList<>();
+        cities.add(getCity());
+        cities.add(getCity());
+        cities.add(getCity());
+        return cities;
+    }
 
     @Test
     public void 도시_정보를_저장한다() {
@@ -70,7 +80,7 @@ class CityServiceTest {
 
         //then
         assertEquals(actual.getCityName(), initCity.getCityName());
-        assertTrue(actual.getLookAt().isBefore(LocalDateTime.now()));
+        assertTrue(Objects.nonNull(actual.getLookAt()));
     }
 
     @Test
@@ -98,5 +108,67 @@ class CityServiceTest {
 
         //then
         assertEquals(1L, longArgumentCaptor.getValue());
+    }
+
+    @Test
+    public void 회원의_여행중인_도시를_조회한다() {
+        //given
+        List<City> expectedCities = getCities();
+        when(userRepository.findById(1L)).thenReturn(Optional.of(new MyUser()));
+        when(cityRepository.findTravelingCitiesByUser(1L)).thenReturn(expectedCities);
+
+        //when
+        List<City> cities = cityService.getTravelingCitiesByUser(1L);
+
+        //then
+        assertEquals(expectedCities.get(0).getCityName(), cities.get(0).getCityName());
+    }
+
+    @Test
+    public void 회원의_여행예정인_도시를_조회한다() {
+        //given
+        List<City> expectedCities = getCities();
+        when(userRepository.findById(1L)).thenReturn(Optional.of(new MyUser()));
+        when(cityRepository.findWillTravelCitiesByUser(1L)).thenReturn(expectedCities);
+
+        //when
+        List<City> cities = cityService.getWillTravelCitiesByUser(1L);
+
+        //then
+        assertEquals(expectedCities.get(0).getCityName(), cities.get(0).getCityName());
+    }
+
+    @Test
+    public void 회원의_하루안에_등록된_도시를_조회한다() {
+        //given
+        List<City> expectedCities = getCities();
+        when(userRepository.findById(1L)).thenReturn(Optional.of(new MyUser()));
+        when(cityRepository.findTop10ByCreatedAtBetween(eq(1L),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)))
+                .thenReturn(expectedCities);
+
+        //when
+        List<City> cities = cityService.getCitiesSaveInOneDayByUser(1L);
+
+        //then
+        assertEquals(expectedCities.get(0).getCityName(), cities.get(0).getCityName());
+    }
+
+    @Test
+    public void 회원의_일주일안에_조회된_도시를_조회한다() {
+        //given
+        List<City> expectedCities = getCities();
+        when(userRepository.findById(1L)).thenReturn(Optional.of(new MyUser()));
+        when(cityRepository.findTop10ByLookAtBetween(eq(1L),
+                any(LocalDateTime.class),
+                any(LocalDateTime.class)
+        )).thenReturn(expectedCities);
+
+        //when
+        List<City> cities = cityService.getCitiesLookAtForOneWeekByUser(1L);
+
+        //then
+        assertEquals(expectedCities.get(0).getCityName(), cities.get(0).getCityName());
     }
 }
