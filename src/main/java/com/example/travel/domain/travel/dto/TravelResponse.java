@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 public class TravelResponse {
     private List<CityResponse> cities;
+    private String travelTitle;
     private Long userId;
     private LocalDate startDate;
     private LocalDate endDate;
