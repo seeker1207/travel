@@ -45,7 +45,7 @@ class TravelServiceTest {
         return TravelDto.builder()
                 .travelTitle("졸업 기념 여행")
                 .startDate(LocalDate.of(2023, 2, 1))
-                .endDate(LocalDate.of(2023, 2, 15))
+                .endDate(LocalDate.now().plusDays(4))
                 .userEmail("test@email.com")
                 .cityIds(List.of("1"))
                 .build();
@@ -55,7 +55,7 @@ class TravelServiceTest {
         return TravelUpdateDto.builder()
                 .travelTitle("졸업 기념 여행")
                 .startDate(LocalDate.of(2023, 2, 1))
-                .endDate(LocalDate.of(2023, 2, 4))
+                .endDate(LocalDate.now().plusDays(3))
                 .build();
     }
 
