@@ -102,7 +102,7 @@ class CityServiceTest {
     @Test
     public void 도시_정보를_삭제한다() {
         //given
-
+        when(cityRepository.findById(1L)).thenReturn(Optional.of(getCity()));
         //when
         cityService.deleteCity(1L);
         verify(cityRepository, times(1)).deleteById(longArgumentCaptor.capture());
