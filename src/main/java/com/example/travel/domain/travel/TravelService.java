@@ -14,6 +14,8 @@ public class TravelService {
     private final TravelRepository travelRepository;
     private final MyUserRepository myUserRepository;
     private final CityRepository cityRepository;
+    private final TravelDtoMapper travelDtoMapper = TravelDtoMapper.INSTANCE;
+
 
     public TravelService(TravelRepository travelRepository, MyUserRepository myUserRepository, CityRepository cityRepository) {
         this.travelRepository = travelRepository;
@@ -21,29 +23,30 @@ public class TravelService {
         this.cityRepository = cityRepository;
     }
 
-    public void makeTravelPlan(TravelDto travelDto) {
+    public void makeTravel(TravelDto travelDto) {
         MyUser currentUser = myUserRepository.findByEmail(travelDto.getUserEmail()).orElseThrow(NoSuchElementException::new);
         City targetCity = cityRepository.findById(Long.valueOf(travelDto.getCityId())).orElseThrow(NoSuchElementException::new);
-        Travel newTravel = TravelDtoMapper.INSTANCE.toEntity(travelDto);
 
-        newTravel.setTraveler(currentUser);
-        newTravel.addCity(targetCity);
+        Travel travel = travelDtoMapper.toEntity(travelDto);
+        travel.setTraveler(currentUser);
+        travel.addCity(targetCity);
 
-        travelRepository.save(newTravel);
+        travelRepository.save(travel);
     }
 
-    public Travel getTravel(Long id) {
-        return travelRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public Travel getTravel(Long travelId) {
+        return travelRepository.findById(travelId).orElseThrow(NoSuchElementException::new);
     }
 
-    public void updateTravelPlan(Long id, TravelUpdateDto travelUpdateDto) {
-        Travel targetTravel = travelRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        targetTravel.updateByDto(travelUpdateDto);
+    public void updateTravel(Long travelId, TravelUpdateDto travelDto) {
+        Travel travel = travelRepository.findById(travelId).orElseThrow(NoSuchElementException::new);
+        travel.updateByDto(travelDto);
+
+        travelRepository.save(travel);
     }
 
-    public void deleteTravel(Long id) {
-        travelRepository.deleteById(id);
+    public void deleteTravel(Long travelId) {
+        travelRepository.deleteById(travelId);
     }
-
 
 }
