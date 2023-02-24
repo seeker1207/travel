@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class TestUtil {
     static public City getCity() {
-        return City.builder().id(1L).cityName("부산").desc("바다가 아름다운 도시입니다.").build();
+        return City.builder().id(1L).cityName("부산").description("바다가 아름다운 도시입니다.").build();
     }
 
     static public Travel getTravel() {
