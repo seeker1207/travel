@@ -36,6 +36,7 @@ public class CityService {
     public City getCity(Long cityId) {
         City city = cityRepository.findById(cityId).orElseThrow(NoSuchElementException::new);
         city.updateLookAtTime();
+        cityRepository.save(city);
         return city;
     }
 
@@ -47,12 +48,14 @@ public class CityService {
         userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
         List<City> cities = cityRepository.findTravelingCitiesByUser(userId);
         cities.forEach(City::updateLookAtTime);
+        cityRepository.saveAll(cities);
         return cities;
     }
     public List<City> getWillTravelCitiesByUser(Long userId) {
         userRepository.findById(userId).orElseThrow(NoSuchElementException::new);
         List<City> cities = cityRepository.findWillTravelCitiesByUser(userId);
         cities.forEach(City::updateLookAtTime);
+        cityRepository.saveAll(cities);
         return cities;
     }
 
@@ -61,6 +64,7 @@ public class CityService {
         List<City> cities = cityRepository.findTop10ByCreatedAtBetween(userId,
                 LocalDateTime.now().minusDays(1L), LocalDateTime.now().plusDays(1L));
         cities.forEach(City::updateLookAtTime);
+        cityRepository.saveAll(cities);
         return cities;
     }
 
@@ -70,6 +74,7 @@ public class CityService {
                 LocalDateTime.of(LocalDate.now().minusDays(7), LocalTime.of(0, 0)),
                 LocalDateTime.now());
         cities.forEach(City::updateLookAtTime);
+        cityRepository.saveAll(cities);
         return cities;
     }
 
