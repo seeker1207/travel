@@ -33,6 +33,7 @@ public interface TravelDtoMapper {
                     ".map((cityTravel) -> CityDtoMapper.INSTANCE.toResponse(cityTravel.getCity()))" +
                     ".toList()" +
                     ")")
+    @Mapping(target="userId", expression = "java(travel.getTraveler().getId())")
     TravelResponse toResponse(Travel travel);
 
 }

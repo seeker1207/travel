@@ -6,8 +6,6 @@ import com.example.travel.domain.travel.Travel;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @NoArgsConstructor
@@ -18,9 +16,11 @@ public class CityTravel extends BaseEntity {
     private long id;
 
     @ManyToOne
+    @JoinColumn(name = "travel_id", referencedColumnName = "id")
     private Travel travel;
 
     @ManyToOne
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
     private City city;
 
     @Builder
