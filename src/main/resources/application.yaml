@@ -1,6 +1,7 @@
 spring:
-  profiles:
-    active: local
+  config:
+    activate:
+      on-profile: dev
   jpa:
     properties:
       hibernate:
@@ -21,9 +22,43 @@ spring:
   config:
     activate:
       on-profile: prod
-
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/travel?useSSL=false&useUnicode=true
+    url: jdbc:mysql://localhost:3306/travel?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     username: root
     password: ths20712
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
