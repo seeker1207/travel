@@ -2,6 +2,7 @@ package com.example.travel.domain.city;
 
 
 import com.example.travel.domain.BaseEntity;
+import com.example.travel.domain.city.dto.CityDto;
 import com.example.travel.domain.citytravel.CityTravel;
 import jakarta.persistence.*;
 import lombok.*;
